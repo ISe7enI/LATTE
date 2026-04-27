@@ -1,0 +1,21 @@
+# Accidental local npm cache folder (should not live in repo)
+{Node.js安装目录}/
+
+# Dependencies
+node_modules/
+
+# Build
+dist/
+
+# Environment (secrets — never commit)
+.env
+.env.local
+.env.*.local
+
+# Logs / cache
+*.log
+.npm-cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
