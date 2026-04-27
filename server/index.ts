@@ -18,7 +18,7 @@ import type {
   WorkoutDetailData,
 } from "./types";
 
-const app = express();
+export const app = express();
 const port = Number(process.env.PORT ?? 8787);
 type AuthedRequest = Request & { auth?: { userId: string; role: "user" | "coach" } };
 
@@ -1015,13 +1015,17 @@ app.get("/api/user/export/workouts.csv", async (req, res) => {
   return res.status(200).send(csv);
 });
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Backend running on http://localhost:${port}`);
-
-  // Seed should not block server availability when external network is flaky.
-  seedIfEmpty().catch((error) => {
+if (process.env.VERCEL !== "1") {
+  app.listen(port, () => {
     // eslint-disable-next-line no-console
-    console.error("Seed failed (server still running):", error);
+    console.log(`Backend running on http://localhost:${port}`);
+
+    // Seed should not block server availability when external network is flaky.
+    seedIfEmpty().catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error("Seed failed (server still running):", error);
+    });
   });
-});
+}
+
+export default app;
