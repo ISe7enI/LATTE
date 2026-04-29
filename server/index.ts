@@ -68,7 +68,14 @@ app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 
 app.get("/api/health", (_req, res) => {
-  res.json({ ok: true });
+  res.json({
+    ok: true,
+    env: {
+      hasSupabaseUrl: Boolean(process.env.SUPABASE_URL),
+      hasSupabaseServiceRoleKey: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY),
+      onVercel: process.env.VERCEL === "1",
+    },
+  });
 });
 
 app.post("/api/auth/register", async (req, res) => {
