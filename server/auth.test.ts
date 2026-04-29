@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { isSelfOrCoach } from "./auth";
+import { isSelfOrCoach } from "./auth.js";
 
 describe("auth helpers", () => {
   it("allows self access for user role", () => {

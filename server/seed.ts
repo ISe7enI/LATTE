@@ -1,10 +1,10 @@
-import { supabase } from "./supabase";
+import { supabase } from "./supabase.js";
 import type {
   UserPreferences,
   UserProfile,
   UserTrainingPlan,
   WorkoutDetailData,
-} from "./types";
+} from "./types.js";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

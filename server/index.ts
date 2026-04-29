@@ -1,10 +1,10 @@
 import "dotenv/config";
 import cors from "cors";
 import express, { type Request } from "express";
-import { supabase } from "./supabase";
-import { seedIfEmpty } from "./seed";
-import { isSelfOrCoach, requireAuth, requireCoach } from "./auth";
-import { hashPassword, verifyPassword } from "./password";
+import { supabase } from "./supabase.js";
+import { seedIfEmpty } from "./seed.js";
+import { isSelfOrCoach, requireAuth, requireCoach } from "./auth.js";
+import { hashPassword, verifyPassword } from "./password.js";
 import type {
   CoachStudent,
   CoachWorkoutGuidance,
@@ -16,7 +16,7 @@ import type {
   UserTrainingPlan,
   WorkoutDraft,
   WorkoutDetailData,
-} from "./types";
+} from "./types.js";
 
 export const app = express();
 const port = Number(process.env.PORT ?? 8787);
