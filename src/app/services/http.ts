@@ -1,4 +1,12 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
+const rawApiBaseUrl = String(import.meta.env.VITE_API_BASE_URL || "").trim();
+const API_BASE_URL = (() => {
+  if (!rawApiBaseUrl) return "/api";
+  const normalized = rawApiBaseUrl.replace(/\/$/, "");
+  // 防止线上把 VITE_API_BASE_URL 配成域名但忘记 /api，导致请求打到 /auth/* 出现 NOT_FOUND。
+  if (normalized === window.location.origin) return `${normalized}/api`;
+  if (/^https?:\/\//.test(normalized) && !/\/api$/i.test(normalized)) return `${normalized}/api`;
+  return normalized;
+})();
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
